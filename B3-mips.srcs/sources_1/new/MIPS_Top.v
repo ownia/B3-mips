@@ -93,7 +93,13 @@ module MIPS_Top(
 
     //IF Stage   
     PC pc (
-        
+        .clk        (clk),
+        .rst        (rst),
+
+        .stall      (stallreq),
+        .br_falg    (br_flag),
+        .br_addr    (br_addr),
+        .pc         (if_pc)
     );
 
     assign inst_addr = if_pc;
@@ -101,7 +107,15 @@ module MIPS_Top(
 
     //IF_ID
     IF_ID if_id (
-        
+        .clk        (clk),
+        .rst        (rst),
+
+        .stall      (stallreq),
+        .if_pc      (if_pc),
+        .if_inst    (if_inst),
+
+        .id_pc      (id_pc),
+        .id_inst    (id_inst)
     );
 
     //ID Stage
