@@ -26,7 +26,19 @@ module EX
     // 根据aluop指示的运算子类型进行运算
     always @(*) begin
         case (aluop)
-
+            `ALU_SLL:  alures <= opr2 << opr1[4:0];
+            `ALU_SRL:  alures <= opr2 >> opr1[4:0];
+            `ALU_SRA:  alures <= ($signed(opr2)) >>> opr1[4:0];
+            `ALU_ADD:  alures <= opr1 + opr2;
+            `ALU_SUB:  alures <= opr1 - opr2;
+            `ALU_AND:  alures <= opr1 & opr2;
+            `ALU_OR:   alures <= opr1 | opr2;
+            `ALU_XOR:  alures <= opr1 ^ opr2;
+            `ALU_NOR:  alures <= ~(opr1 | opr2);
+            `ALU_SLT:  alures <= $signed(opr1) < $signed(opr2);
+            `ALU_SLTU: alures <= opr1 < opr2;
+            `ALU_JAL:  alures <= pc + 32'd8;
+            default:   alures <= 32'b0;
         endcase
     end
 
